@@ -46,7 +46,7 @@ canvas {
             
                 #control-panel {
                     /* 调整控制面板在竖屏时的位置和尺寸 */
-                    width: 200%;
+                    width: 100%;
                     height: auto;
                     position: relative;
                     max-height: 60vh;
