@@ -2813,11 +2813,11 @@ let scene, camera, renderer, controls;
 
 
 
-        // // 禁用右键菜单
-        // document.addEventListener('contextmenu', e => e.preventDefault());
+        // 禁用右键菜单
+        document.addEventListener('contextmenu', e => e.preventDefault());
 
-        // // 禁用Ctrl+C/Ctrl+V/Ctrl+S等快捷键
-        // document.addEventListener('keydown', e => {
-        //   if (e.ctrlKey && (e.key === 'c' || e.key === 'v' || e.key === 's' || e.key === 'u')) e.preventDefault();
-        //   if (e.key === 'F12') e.preventDefault(); // 禁用F12开发者工具
-        // });
+        // 禁用Ctrl+C/Ctrl+V/Ctrl+S等快捷键
+        document.addEventListener('keydown', e => {
+          if (e.ctrlKey && (e.key === 'c' || e.key === 'v' || e.key === 's' || e.key === 'u')) e.preventDefault();
+          if (e.key === 'F12') e.preventDefault(); // 禁用F12开发者工具
+        });
