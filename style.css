@@ -29,7 +29,52 @@ canvas {
                 max-height: 60vh; 
             }
         }
-         
+
+            /* 竖屏样式 */
+            @media screen and (orientation: portrait) {
+                /* 可以在这里调整竖屏时元素的样式 */
+                #model-info {
+                    /* 调整信息面板在竖屏时的位置和尺寸 */
+                    right: 0;
+                    top: 0;
+                    left: auto;
+                    max-width: none;
+                    width: auto;
+                    flex-direction: column;
+                    max-height: none;
+                }
+            
+                #control-panel {
+                    /* 调整控制面板在竖屏时的位置和尺寸 */
+                    width: 100%;
+                    height: auto;
+                    position: relative;
+                    max-height: 60vh;
+                }
+            }
+            
+            /* 横屏样式 */
+            @media screen and (orientation: landscape) {
+                /* 可以在这里调整横屏时元素的样式 */
+                #model-info {
+                    /* 调整信息面板在横屏时的位置和尺寸 */
+                    right: 0;
+                    top: 0;
+                    left: auto;
+                    max-width: none;
+                    width: auto;
+                    flex-direction: row;
+                }
+            
+                #control-panel {
+                    /* 调整控制面板在横屏时的位置和尺寸 */
+                    width: 160px;
+                    height: 100vh;
+                    position: fixed;
+                    left: 20px;
+                    top: 20px;
+                }
+            }
         #control-panel input,
         #control-panel select,
         #control-panel button,
