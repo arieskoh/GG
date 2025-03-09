@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TheaterDsgn by老高</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="screen-info"></div>
+    <div class="mobile-toggle" onclick="togglePanel()"></div>
+    <div id="model-info">
+        <div id="toggle-panel"></div>
+        <div id="info-panel" class="card-container">
+            <div class="card">
+                <div class="card-content" style="padding-top: 4px;">
+                    <div class="custom-select">
+                        <select id="viewDirection">
+                            <option value="front">前视图</option>
+                            <option value="back">后视图</option>
+                            <option value="left">左视图</option>
+                            <option value="right">右视图</option>
+                            <option value="top">顶视图</option>
+                            <option value="bottom">底视图</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content" style="padding-top: 4px;">
+                    <div class="info-row">
+                        <span class="label">音箱线总长度：</span>
+                        <span class="value" id="total-wire-length">0.00</span>
+                        <span class="unit">米</span>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="card">
+                <div class="card-content" style="padding-top: 4px;">
+                    <div class="switch-group">
+                        <label class="switch">
+                            <input type="checkbox" id="projectionToggle">
+                            <span class="slider"></span>
+                            <span>平行视图</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content" style="padding-top: 4px;">
+                    <div class="info-row">
+                        <span class="label">地面面积：</span>
+                        <span class="value" id="room-area">0.00</span>
+                        <span class="unit">m²</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="label">空间容积：</span>
+                        <span class="value" id="room-volume">0.00</span>
+                        <span class="unit">m³</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="label">房间比例：</span>
+                        <span class="value" id="room-ratio">0:0:0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content" style="padding-top: 4px;">
+                    <div class="info-row">
+                        <span class="label">幕布宽度：</span>
+                        <span class="value" id="screen-width">0.00</span>
+                        <span class="unit">m</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="label">幕布高度：</span>
+                        <span class="value" id="screen-height">0.00</span>
+                        <span class="unit">m</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 添加折叠功能
+        const togglePanel = document.getElementById('toggle-panel');
+        const modelInfo = document.getElementById('model-info');
+        
+        togglePanel.addEventListener('click', () => {
+            modelInfo.classList.toggle('collapsed');
+        });
+    </script>
+    <div id="control-panel">
+        <!-- 房间尺寸设置 -->
+        <div class="card">
+            <div class="card-header">房间尺寸设置</div>
+            <div class="card-content">
+                <div class="input-group">
+                    <label>长度 <span class="unit">(米)</span></label>
+                    <input type="number" id="length" value="6.5" step="0.1">
+                    <input type="range" id="length-range" min="1" max="10" step="0.1" value="6.5">
+                </div>
+                <div class="input-group">
+                    <label>宽度 <span class="unit">(米)</span></label>
+                    <input type="number" id="width" value="4.0" step="0.1">
+                    <input type="range" id="width-range" min="1" max="10" step="0.1" value="4.0">
+                </div>
+                <div class="input-group">
+                    <label>高度 <span class="unit">(米)</span></label>
+                    <input type="number" id="height" value="2.8" step="0.1">
+                    <input type="range" id="height-range" min="1" max="5" step="0.1" value="2.8">
+                </div>
+            </div>
+        </div>
+
+        <!-- 投影幕设置 -->
+            <div class="card">
+                <div style="background:rgba(100,100,0,0.1); color:black;">
+                <div class="card-header">投影幕设置</div>
+                <div class="card-content">
+                    <div class="input-group">
+                        <label>尺寸 <span class="unit">(英寸)</span></label>
+                        <div class="input-row">
+                            <input type="number" id="screenSize" value="160" step="0.1" style="flex: 1;">
+                        </div>
+                        <input type="range" id="screenSize-range" min="30" max="500" step="1" value="120">
+                    </div>
+
+                    <div class="input-group">
+                        <label>屏幕比例</label>
+                        <select id="screenRatio" class="full-width">
+                            <option value="16/9">16:9</option>
+                            <option value="4/3">4:3</option>
+                            <option value="16/10">16:10</option>
+                            <option value="2.35/1">2.35:1</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>边框宽度 <span class="unit">(cm)</span></label>
+                        <div class="input-row">
+                            <input type="number" id="screenBorderWidth" class="full-width" value="8" step="1">
+                        </div>
+                        <input type="range" id="screenBorderWidth-range" min="0" max="50" step="1" value="8">
+                    </div>
+                    <div class="input-group">
+                        <label>
+                            <input type="checkbox" id="showProjector" checked> 显示投影机
+                        </label>
+                    </div>
+                    <div class="input-group">
+                        <label>投射比 <span class="unit">(<span id="throwRatioValue">1.5</span>:1)</span></label>
+                        <div class="input-row">
+                            <input type="number" id="throwRatio" value="1.5" step="0.01" min="0.01" max="3.0" style="flex: 1;">
+                        </div>
+                        <input type="range" id="throwRatio-range" min="0.01" max="3.0" step="0.01" value="1.5">
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+        <!-- 音箱配置 -->
+        <div class="card">
+            <div style="background:rgba(100,100,0,0.1); color:black;">
+            <div class="card-header">音箱配置</div>
+            <div class="card-content">
+                <div class="radio-group">
+                    <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                        <label><input type="radio" name="speakerConfig" value="5.1" checked> 5.1</label>
+                        <label><input type="radio" name="speakerConfig" value="5.1.2"> 5.1.2</label>
+                        <label><input type="radio" name="speakerConfig" value="5.1.4"> 5.1.4</label>
+                    </div>
+                    <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                        <label><input type="radio" name="speakerConfig" value="7.1">7.1</label>
+                        <label><input type="radio" name="speakerConfig" value="7.1.2"> 7.1.2</label>
+                        <label><input type="radio" name="speakerConfig" value="7.1.4"> 7.1.4</label>
+                    </div>
+                    <div style="display: flex; gap: 10px;">
+                        <label><input type="radio" name="speakerConfig" value="9.1.4"> 9.1.4</label>
+                        <label><input type="radio" name="speakerConfig" value="9.1.6" checked> 9.1.6</label>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <!-- 音箱摆位设置 -->
+        <div class="card">
+            <div style="background:rgba(100,100,0,0.1); color:black;">
+            <div class="card-header">音箱摆位设置</div>
+            <div class="card-content">
+                <div class="input-group">
+                    <label>观影视角 <span class="unit">(°)</span></label>
+                    <input type="number" id="viewAngle" value="45" min="15" max="100">
+                    <input type="range" id="viewAngle-range" min="15" max="100" step="1" value="45">
+                </div>
+                <div class="input-group">
+                    <label>听音高度 <span class="unit">(m)</span></label>
+                    <input type="number" id="earHeight" value="1.2" step="0.01" min="0.1">
+                    <input type="range" id="earHeight-range" min="0.1" max="5" step="0.01" value="1.2">
+                </div>
+                <div class="input-group">
+                    <label>主音箱夹角 <span class="unit">(°)</span></label>
+                    <input type="number" id="mainSpeakerAngle" value="41" min="25" max="60">
+                    <input type="range" id="mainSpeakerAngle-range" min="25" max="60" step="0.1" value="41">
+                </div>
+                <div class="input-group">
+                    <label>前环绕夹角 <span class="unit">(°)</span></label>
+                    <input type="number" id="frontSurroundAngle" value="60" min="50" max="70">
+                    <input type="range" id="frontSurroundAngle-range" min="50" max="70" step="0.1" value="60">
+                </div>
+                <div class="input-group">
+                    <label>侧环绕夹角 <span class="unit">(°)</span></label>
+                    <input type="number" id="sideSurroundAngle" value="90" min="75" max="110">
+                    <input type="range" id="sideSurroundAngle-range" min="75" max="110" step="0.1" value="90">
+                </div>
+                <div class="input-group">
+                    <label>后环绕夹角 <span class="unit">(°)</span></label>
+                    <input type="number" id="rearSurroundAngle" value="60" min="45" max="150">
+                    <input type="range" id="rearSurroundAngle-range" min="45" max="150" step="0.1" value="60">
+                </div>
+                <div class="input-group">
+                    <label>前置天空声道夹角 <span class="unit">°</span></label>
+                    <input type="number" id="frontSkyAngle" value="55" min="30" max="55">
+                    <input type="range" id="frontSkyAngle-range" min="30" max="55" step="0.1" value="55">
+                </div>
+                <div class="input-group">
+                    <label>后置天空声道夹角 <span class="unit">°</span></label>
+                    <input type="number" id="rearSkyAngle" value="125" min="125" max="150">
+                    <input type="range" id="rearSkyAngle-range" min="125" max="150" step="0.1" value="125">
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+    <div class="card-header">布线设置</div>
+            <div class="card-content">
+                <div class="input-group">
+                    <label>
+                        <input type="checkbox" id="cabinetToggle"> 生成出线位置
+                    </label>
+                </div>
+                
+                <!-- 添加旋转按钮 -->
+                <div class="input-group">
+                    <button id="rotateCabinetBtn" style="margin-top:10px;">旋转出线位置</button>
+                </div>
+         
+                <!-- 坐标调节滑块 -->
+                <div class="input-group">
+                    <label>前后 <span class="unit">(米)</span></label>
+                    <input type="range" id="cabinetX" min="-10" max="10" step="0.1" value="0" disabled>
+                </div>
+                <div class="input-group">
+                    <label>上下移动 <span class="unit">(米)</span></label>
+                    <input type="range" id="cabinetY" min="-10" max="10" step="0.1" value="-1.5" disabled>
+                </div>
+                <div class="input-group">
+                    <label>左右 <span class="unit">(米)</span></label>
+                    <input type="range" id="cabinetZ" min="-10" max="10" step="0.1" value="2.2" disabled>
+                </div>
+                <div class="input-group">
+                    <label>
+                        <input type="checkbox" id="generateWiring"> 生成布线方案
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- 新增显示标注卡片 -->
+        <div class="card">
+            <div class="card-header">显示标注</div>
+            <div class="card-content">
+                <div class="input-group">
+                    <label>
+                        <input type="checkbox" id="showViewAngle"> 视角显示
+                    </label>
+                </div>
+                <div class="input-group">
+                    <label>
+                        <input type="checkbox" id="showSpeakerPoints"> 音箱布线点位
+                    </label>
+                </div>
+                <div class="input-group">
+                    <label>
+                        <input type="checkbox" id="showProjectorPoints"> 投影机镜头点位
+                    </label>
+                </div>
+                <div class="input-group">
+                    <label>
+                        <input type="checkbox" id="showSweetSpot"> 皇帝位点位
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="
+https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="
+https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/geometries/RoundedBoxGeometry.js"></script>
+    <script src="
+https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="
+https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/renderers/CSS2DRenderer.js"></script>
+    <script src="
+https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/renderers/CSS3DRenderer.js"></script>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
